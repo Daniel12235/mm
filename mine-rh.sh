@@ -1,4 +1,12 @@
-
+yum update -y
+yum install -y centos-release-scl cmake3 hwloc-devel libmicrohttpd-devel openssl-devel git
+yum install -y devtoolset-4-gcc*
+scl enable devtoolset-4 bash
+git clone https://github.com/fireice-uk/xmr-stak-cpu.git /xmr 
+cd /xmr
+cmake3 .
+make install
+echo '
 "cpu_threads_conf" :
 [
     { "low_power_mode" : true, "no_prefetch" : true, "affine_to_cpu" : 0 },
@@ -24,4 +32,6 @@
 "output_file" : "/var/logs/xmr.log",
 "httpd_port" : 10080,
 "prefer_ipv4" : true,
-
+' > /xmr/bin/config.txt
+cd /xmr/bin
+./xmr-stak-cpu

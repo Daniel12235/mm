@@ -8,6 +8,8 @@ FROM ubuntu:latest
 
 MAINTAINER Cheney Veron <cheneyveron@live.cn>
 
+EXPOSE 10080
+
 #
 #--------------------------------------------------------------------------
 # Software's Installation

